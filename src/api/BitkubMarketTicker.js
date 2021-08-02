@@ -17,6 +17,12 @@ const reducer = (prev, action) =>{
                 errorValue: "please enter correct value.",
                 isError: true
             }
+        case "inputForm":
+            return{
+                ...prev,
+                inputcurrent: action.value
+
+            }
     }
 }
 
@@ -24,6 +30,7 @@ const initialState = {
     id: "Type THB_AAVE, THB_ABT, THB_ADA",
     last: "",
     errorValue: "",
+    inputcurrent: "",
     isError: false
 }
 
@@ -40,21 +47,31 @@ const BitkubMarketTicker = () => {
 
     const onHaddleSubmit = (e) =>{
         e.preventDefault();
+        setSelection(e.target.value);
+        bitkubAPI();
+        
+    }
 
-            console.log(selection)
-            fetch('https://api.bitkub.com/api/market/ticker')
-            .then(response => response.json())
-            .then(jsonData => jsonData[selection])
-            .then(jsonData2 => setData({type:"json_data",id:jsonData2['id'], last:jsonData2['last']}))
+    const bitkubAPI = () => {
+        console.log(selection)
+        fetch('https://api.bitkub.com/api/market/ticker')
+        .then(response => response.json())
+        .then(jsonData => jsonData[selection])
+        .then(jsonData2 => setData({type:"json_data",id:jsonData2['id'], last:jsonData2['last']}))
+        
 
-        .catch (()=>{
-            setData({type:"error"})
-        })
+    .catch (()=>{
+        setData({type:"error"})
 
-
+     
+    })
 
     }
 
+ 
+    // useEffect(bitkubAPI, [])
+    
+ 
     console.log(data)
 
 
@@ -74,6 +91,7 @@ const BitkubMarketTicker = () => {
                 onChange={(e) => setSelection(e.target.value)}
                 value={selection}
                  />
+
                 <button type="submit">Submit</button>
             </form>
             <p style={{color: "red"}}>{data.isError? data.errorValue: ""}</p>
