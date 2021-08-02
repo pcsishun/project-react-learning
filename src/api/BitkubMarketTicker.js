@@ -38,7 +38,8 @@ const initialState = {
 const BitkubMarketTicker = () => {
 
     const [data, setData] = useReducer(reducer,initialState)
-    const [selection, setSelection] = useState()
+    const [selection, setSelection] = useState();
+    const [useffectStats, setUseffectStats] = useState("");
  
 
     console.log(selection)
@@ -67,17 +68,24 @@ const BitkubMarketTicker = () => {
     })
 
     }
-
- 
-    // useEffect(bitkubAPI, [])
+    
+    useEffect(() =>{
+      
+        if(selection === ""){
+            setUseffectStats("")
+        }
+        else if(selection !== ""){
+            setUseffectStats(selection)
+        }
+        setUseffectStats(selection)
+    }, [selection])
     
  
     console.log(data)
 
-
- 
     return (
         <div>
+            <h3>{useffectStats}</h3>
             <p>ID: {data.id}</p>
             <p >Price: {data.last}</p>
             <hr/>
