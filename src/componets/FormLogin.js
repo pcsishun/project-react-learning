@@ -3,6 +3,8 @@ import Input from './inputForm/Input';
 import OnLogin from './operateLogin/Onlogin';
 import BitkubMarketTicker from '../api/BitkubMarketTicker';
 
+
+
 const reducer = (prev, action) =>{
     switch(action.type){
         case "userEnter":

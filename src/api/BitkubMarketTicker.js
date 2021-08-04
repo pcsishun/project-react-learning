@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import React, { useState, useReducer, useEffect } from 'react';
-
+import UserGitHub from './UserGitHub'
 
 const reducer = (prev, action) =>{
     switch(action.type){
@@ -103,6 +103,7 @@ const BitkubMarketTicker = () => {
                 <button type="submit">Submit</button>
             </form>
             <p style={{color: "red"}}>{data.isError? data.errorValue: ""}</p>
+            <UserGitHub/>
         </div>
     )
 
